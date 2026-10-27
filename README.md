@@ -35,7 +35,7 @@ As a mobile mechanic I kept turning up to jobs and finding I'd used the last oil
 ## Run it locally
 
 ```bash
-git clone https://github.com/emilian-mechanic/van-stock-tracker.git
+git clone https://github.com/emilianmarian1984-commits/van-stock-tracker.git
 cd van-stock-tracker
 python -m venv .venv
 # Windows: .venv\Scripts\activate    macOS/Linux: source .venv/bin/activate
