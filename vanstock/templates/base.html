@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} - Van Stock Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="{{ url_for('index') }}">Van Stock</a>
+  {% if g.user %}
+  <nav>
+    <a href="{{ url_for('stock.parts') }}">Parts</a>
+    <a href="{{ url_for('stock.history') }}">History</a>
+    <a href="{{ url_for('stock.security') }}">Security</a>
+    <form action="{{ url_for('auth.logout') }}" method="post" class="inline">
+      <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+      <button class="link">Log out</button>
+    </form>
+  </nav>
+  {% endif %}
+</header>
+<main>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

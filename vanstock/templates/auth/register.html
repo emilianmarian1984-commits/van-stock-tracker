@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Create account{% endblock %}
+{% block content %}
+<h1>Set up owner account</h1>
+<p class="muted">This is a single-user app. Once this account exists, registration closes.</p>
+<form method="post" class="card">
+  <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+  <label>Username <input name="username" required maxlength="40" autocomplete="username"></label>
+  <label>Password <input type="password" name="password" required minlength="12" autocomplete="new-password"></label>
+  <label>Confirm password <input type="password" name="confirm" required minlength="12" autocomplete="new-password"></label>
+  <p class="tip">Tip: three random words, e.g. <em>spanner-cloud-tulip</em>. At least 12 characters. Not the same as your email password.</p>
+  <button class="btn">Create account</button>
+</form>
+{% endblock %}
