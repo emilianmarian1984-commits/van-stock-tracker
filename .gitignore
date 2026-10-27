@@ -1,0 +1,15 @@
+# local database and config - never push these
+instance/
+*.sqlite
+.env
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# editor
+.vscode/
+.DS_Store
