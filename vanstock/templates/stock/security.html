@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Security{% endblock %}
+{% block content %}
+<h1>Security tips</h1>
+<p class="muted">Briefing: {{ 'completed' if g.user.briefing_done else 'not completed yet' }}.
+  Failed logins since last success: {{ g.user.failed_attempts }}.</p>
+<ul class="list">
+  {% for t in tips %}
+  <li><div><strong>{{ t[0] }}</strong><br><small>{{ t[1] }}</small></div><span class="tag">{{ t[2] }}</span></li>
+  {% endfor %}
+</ul>
+<p><a href="{{ url_for('stock.briefing') }}">Read the 60-second briefing again</a></p>
+{% endblock %}

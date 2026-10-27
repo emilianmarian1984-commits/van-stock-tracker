@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}History{% endblock %}
+{% block content %}
+<h1>Stock history</h1>
+<p class="tip">Don't recognise a movement? Change your password and check who has a login.</p>
+<table class="parts">
+  <thead><tr><th>When</th><th>Part</th><th>Change</th><th>Reason</th><th>Who</th></tr></thead>
+  <tbody>
+  {% for m in rows %}
+  <tr>
+    <td><small>{{ m.created_at }}</small></td>
+    <td>{{ m.part_name }}</td>
+    <td class="{{ 'pos' if m.change > 0 else 'neg' }}">{{ '%+d' % m.change }}</td>
+    <td>{{ m.reason }}{% if m.job_ref %}<br><small>job {{ m.job_ref }}</small>{% endif %}</td>
+    <td>{{ m.username }}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="5" class="muted">Nothing yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

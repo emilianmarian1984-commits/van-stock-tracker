@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}60-second briefing{% endblock %}
+{% block content %}
+<div class="briefing">
+  <h1>60-second van security briefing</h1>
+  <p class="muted">Read once. Takes a minute. You'll only see this on your first login.</p>
+  <ol>
+    <li><strong>Lock your phone.</strong> PIN or fingerprint. This app stays logged in for 30 minutes - an unlocked phone left on the dashboard is an open stock list.</li>
+    <li><strong>Three random words.</strong> Your password is yours only. Not your email one, not written on the sun visor.</li>
+    <li><strong>Log out on borrowed devices.</strong> Customer's laptop, mate's tablet - always tap <em>Log out</em>.</li>
+    <li><strong>Ignore login links in texts.</strong> Open the app from your own bookmark. No supplier needs your password.</li>
+    <li><strong>Check History.</strong> If stock moved and it wasn't you, change your password straight away.</li>
+  </ol>
+  <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+    <label class="check"><input type="checkbox" name="ack" value="yes"> I've read this and my phone has a screen lock</label>
+    <button class="btn">Continue to my stock</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="tipbox" id="tip">
+  <strong>Van tip: {{ tip[0] }}</strong>
+  <p>{{ tip[1] }}</p>
+</div>
+
+<div class="stats">
+  <div><span>{{ totals.lines }}</span>part lines</div>
+  <div><span>{{ totals.items }}</span>items in van</div>
+  <div><span>&pound;{{ '%.2f' % totals.value }}</span>stock value</div>
+</div>
+
+<h2>Low stock ({{ low|length }})</h2>
+{% if low %}
+<ul class="list">
+  {% for p in low %}
+  <li class="{{ 'out' if p.quantity == 0 else 'low' }}">
+    <div><strong>{{ p.name }}</strong> <small>{{ p.part_number }}</small><br>
+      <small>{{ p.location or 'no location' }} &middot; {{ p.quantity }} left (min {{ p.min_quantity }})</small></div>
+    <a class="btn small" href="{{ url_for('stock.move', part_id=p.id) }}">In / Out</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="muted">Nothing low. Good.</p>
+{% endif %}
+
+<h2>Recent movements</h2>
+{% if recent %}
+<ul class="list">
+  {% for m in recent %}
+  <li><div>{{ m.part_name }} <strong class="{{ 'pos' if m.change > 0 else 'neg' }}">{{ '%+d' % m.change }}</strong>
+    <br><small>{{ m.reason }}{% if m.job_ref %} &middot; job {{ m.job_ref }}{% endif %} &middot; {{ m.username }} &middot; {{ m.created_at }}</small></div></li>
+  {% endfor %}
+</ul>
+{% else %}<p class="muted">No movements yet.</p>{% endif %}
+
+<p><a class="btn" href="{{ url_for('stock.create') }}">+ Add part</a>
+   <a class="btn ghost" href="{{ url_for('stock.export_csv') }}">Export CSV</a></p>
+{% endblock %}

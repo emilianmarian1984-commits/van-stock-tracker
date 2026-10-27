@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="post" class="card">
+  <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+  <label>Name <input name="name" required maxlength="100" value="{{ part.name or '' }}"></label>
+  <label>Part number <input name="part_number" maxlength="50" value="{{ part.part_number or '' }}"></label>
+  <label>Category
+    <select name="category">
+      {% for c in categories %}<option {{ 'selected' if c == part.category }}>{{ c }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Location in van <input name="location" maxlength="50" placeholder="e.g. Bin A1" value="{{ part.location or '' }}"></label>
+  <div class="row">
+    <label>Quantity <input type="number" name="quantity" min="0" value="{{ part.quantity or 0 }}"></label>
+    <label>Min level <input type="number" name="min_quantity" min="0" value="{{ part.min_quantity if part.min_quantity is not none else 1 }}"></label>
+    <label>Unit cost &pound; <input type="number" name="unit_cost" min="0" step="0.01" value="{{ part.unit_cost or 0 }}"></label>
+  </div>
+  <button class="btn">Save</button>
+  <a href="{{ url_for('stock.parts') }}">Cancel</a>
+</form>
+{% endblock %}

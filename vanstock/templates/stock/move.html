@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Stock in / out{% endblock %}
+{% block content %}
+<h1>{{ part.name }}</h1>
+<p class="muted">{{ part.part_number }} &middot; {{ part.location or 'no location' }} &middot; <strong>{{ part.quantity }}</strong> in van</p>
+<form method="post" class="card">
+  <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+  <div class="toggle">
+    <label><input type="radio" name="direction" value="out" checked> Used on job</label>
+    <label><input type="radio" name="direction" value="in"> Restock</label>
+  </div>
+  <label>Quantity <input type="number" name="qty" min="1" value="1" required></label>
+  <label>Job reference <input name="job_ref" maxlength="50" placeholder="e.g. reg plate or invoice no."></label>
+  <button class="btn">Save</button>
+  <a href="{{ url_for('index') }}">Cancel</a>
+</form>
+{% endblock %}
